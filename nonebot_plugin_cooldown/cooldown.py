@@ -1,6 +1,5 @@
 import json
 import time
-from pathlib import Path
 from typing import Union
 
 import nonebot
@@ -45,8 +44,8 @@ def set_event(token: str, duration: int, type='normal', **kwargs) -> None:
     group = kwargs.get('group') if type in ('group', 'normal') else 0
     user = kwargs.get('user') if type in ('normal', 'user') else 0
 
-    if not (records := _cooldown_events.get(token)):
-        records = []
+    if not _cooldown_events.get(token):
+        _cooldown_events[token] = []
 
     current_time = int(time.time())
     result = {
@@ -56,14 +55,15 @@ def set_event(token: str, duration: int, type='normal', **kwargs) -> None:
     }
 
     # 更新记录
-    for i, record in enumerate(records):
+    for i, record in enumerate(_cooldown_events[token]):
         if record.get('group') == group and record.get('user') == user:
-            records[i] = result
+            _cooldown_events[token][i] = result
             log.debug(f'Cooldown event {token}({result}) has been updated.')
             return
 
     # 添加记录
-    records.append(result)
+    _cooldown_events[token].append(result)
+    log.warning(_cooldown_events)
     log.debug(f'Cooldown event {token}({result}) has been set.')
 
 
@@ -108,10 +108,10 @@ def get_event(token: str, ignore_priority=False, type='normal', **kwargs) -> (
         for record in records:
             record_group = record.get('group')
             record_user = record.get('user')
-            expire_time = record.get('expired_time')
+            expired_time = record.get('expired_time')
 
             # 冷却事件正在生效
-            is_valid = expire_time - current_time >= 0
+            is_valid = expired_time - current_time >= 0
             # 事件记录为全局冷却事件
             is_global_record = not record_group and not record_user
             # 事件记录为群组冷却事件
@@ -129,12 +129,12 @@ def get_event(token: str, ignore_priority=False, type='normal', **kwargs) -> (
 
             if (ignore_priority_pattern or normal_pattern) and is_valid:
                 status = True
-                remaining = expire_time - current_time
+                remaining = expired_time - current_time
 
-        return {
-            'status': status,
-            'remaining': remaining
-        }
+    return {
+        'status': status,
+        'remaining': remaining
+    }
 
 
 def del_event(token: str, type='normal', **kwargs) -> None:
@@ -184,7 +184,7 @@ def _restore() -> None:
 
     if BACKUP_FILE.exists():
         with open(BACKUP_FILE) as backup:
-            json.load(backup)
+            _cooldown_events = json.load(backup)
             log.debug(f'{LABEL} | Restored data from file '
                       f'{BACKUP_FILE.absolute()}.')
     else:
@@ -208,7 +208,7 @@ def _remove_expired() -> None:
     # 移除过期的事件记录
     for _, records in _cooldown_events.items():
         for i, record in enumerate(records):
-            if record.get('expire_time') - current_time <= 0:
+            if record.get('expired_time') - current_time <= 0:
                 del records[i]
                 count += 1
 
@@ -248,8 +248,8 @@ def _backup() -> None:
     '''
     global _cooldown_events
 
-    if not (path := BACKUP_FILE.parent).is_dir():
-        path.mkdir()
+    if not BACKUP_FILE.parent.is_dir():
+        BACKUP_FILE.mkdir()
 
     with open(BACKUP_FILE, 'w') as backup:
         json.dump(_cooldown_events, backup, indent=4)
