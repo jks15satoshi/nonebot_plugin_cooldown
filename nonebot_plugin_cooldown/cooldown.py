@@ -248,8 +248,8 @@ def _backup() -> None:
     '''
     global _cooldown_events
 
-    if not BACKUP_FILE.parent.is_dir():
-        BACKUP_FILE.mkdir()
+    if not (path := BACKUP_FILE.parent).is_dir():
+        path.mkdir()
 
     with open(BACKUP_FILE, 'w') as backup:
         json.dump(_cooldown_events, backup, indent=4)
