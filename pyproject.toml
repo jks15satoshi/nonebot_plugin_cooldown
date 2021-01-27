@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "nonebot-plugin-cooldown"
-version = "1.0.0"
+version = "1.0.2"
 description = "A Cooldown Event Managing Plugin for Nonebot 2"
 authors = ["Satoshi Jek <jks15satoshi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 nonebot2 = "^2.0.0-alpha.8"
 apscheduler = "^3.7.0"
 

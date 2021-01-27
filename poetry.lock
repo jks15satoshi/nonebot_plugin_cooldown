@@ -176,7 +176,7 @@ uvicorn = ">=0.11.5,<0.12.0"
 
 [package.dependencies.pydantic]
 version = ">=1.7.3,<2.0.0"
-extras = ["dotenv", "typing_extensions"]
+extras = ["typing_extensions", "dotenv"]
 
 [[package]]
 name = "pycodestyle"
@@ -354,8 +354,8 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [metadata]
 lock-version = "1.0"
-python-versions = "^3.9"
-content-hash = "7e42d14a7e91a3952d20326bc0b75d07f8c03abcc2e0737609a917fd9113f8db"
+python-versions = "^3.8"
+content-hash = "fff8d2548120fd07d7ba535127c7586e15e6262b2eba1af0a07f7369a2df1281"
 
 [metadata.files]
 apscheduler = [
