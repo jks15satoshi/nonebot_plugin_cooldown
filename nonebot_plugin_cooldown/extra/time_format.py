@@ -3,7 +3,7 @@ from nonebot import export
 
 @export()
 def time_format(timestamp: int, preset='std') -> str:
-    '''
+    """
     格式化输出剩余时间信息。
 
     参数：
@@ -11,13 +11,13 @@ def time_format(timestamp: int, preset='std') -> str:
 
     关键字参数：
     - `preset: str`：格式名称，可用的格式名称有：
-        * `std`：标准格式，以冒号分隔日、时、分、秒，例如 `05:04:03:02`；
-        * `zh`：中文格式，例如 `5天4小时3分2秒`。
+        - `std`：标准格式，以冒号分隔日、时、分、秒，例如 `05:04:03:02`；
+        - `zh`：中文格式，例如 `5天4小时3分2秒`。
       默认值为 `std`。
 
     返回：
     - `str`：格式化的时间信息
-    '''
+    """
     days = abs(timestamp) // 86400
     hours = (abs(timestamp) - days * 86400) // 3600
     minutes = (abs(timestamp) - days * 86400 - hours * 3600) // 60
