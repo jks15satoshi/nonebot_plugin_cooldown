@@ -1,6 +1,6 @@
 import json
 import time
-from typing import Any, Mapping
+from typing import Any
 
 import nonebot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
