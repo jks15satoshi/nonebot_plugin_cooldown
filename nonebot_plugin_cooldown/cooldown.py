@@ -12,9 +12,6 @@ from .config import Config
 
 _cooldown_events = {}
 
-log = logger.opt(colors=True)
-LABEL = '<le><u>cooldown</u></le>'
-
 driver = nonebot.get_driver()
 config = Config(**driver.config.dict())
 
@@ -58,13 +55,13 @@ def set_event(token: str, duration: int, type='normal', **kwargs) -> None:
     for i, record in enumerate(_cooldown_events[token]):
         if record.get('group') == group and record.get('user') == user:
             _cooldown_events[token][i] = result
-            log.debug(f'Cooldown event {token}({result}) has been updated.')
+            logger.debug(f'Cooldown event {token}({result}) has been updated.')
             return
 
     # 添加记录
     _cooldown_events[token].append(result)
-    log.warning(_cooldown_events)
-    log.debug(f'Cooldown event {token}({result}) has been set.')
+    logger.warning(_cooldown_events)
+    logger.debug(f'Cooldown event {token}({result}) has been set.')
 
 
 def get_event(token: str, ignore_priority=False, type='normal', **kwargs) -> (
@@ -161,8 +158,7 @@ def del_event(token: str, type='normal', **kwargs) -> None:
     for i, record in enumerate(records):
         if record.get('group') == group and record.get('user') == user:
             del records[i]
-            log.info(f'{LABEL} | Event {token}({record}) has been removed '
-                     'manually.')
+            logger.info(f'Event {token}({record}) has been removed manually.')
 
 
 @driver.on_startup
@@ -172,7 +168,7 @@ def _init() -> None:
     '''
     if not scheduler.running:
         scheduler.start()
-        log.info(f'{LABEL} | Scheduler started')
+        logger.info(f'Scheduler started')
 
 
 @driver.on_startup
@@ -185,11 +181,10 @@ def _restore() -> None:
     if BACKUP_FILE.exists():
         with open(BACKUP_FILE) as backup:
             _cooldown_events = json.load(backup)
-            log.debug(f'{LABEL} | Restored data from file '
-                      f'{BACKUP_FILE.absolute()}.')
+            logger.debug(f'Restored data from file {BACKUP_FILE.absolute()}.')
     else:
-        log.warning(f'{LABEL} | Backup file {BACKUP_FILE.absolute()} does '
-                    'not exist, skip restoring.')
+        logger.warning(f'Backup file {BACKUP_FILE.absolute()} does not exist, '
+                       'skip restoring.')
 
 
 @driver.on_startup
@@ -215,8 +210,8 @@ def _remove_expired() -> None:
     # 移除无事件记录的事件标签
     _cooldown_events = {k: v for k, v in _cooldown_events.items() if v}
 
-    log.debug(f'{LABEL} | Automatically removed expired cooldown records: '
-              f'{count} {"records" if count != 1 else "event"} removed.')
+    logger.debug(f'Automatically removed expired cooldown records: '
+                 f'{count} {"records" if count != 1 else "event"} removed.')
 
 
 @driver.on_startup
@@ -253,5 +248,5 @@ def _backup() -> None:
 
     with open(BACKUP_FILE, 'w') as backup:
         json.dump(_cooldown_events, backup, indent=4)
-        log.debug(f'{LABEL} | Backed up cooldown data to file '
-                  f'{BACKUP_FILE.absolute()}.')
+        logger.debug(f'Backed up cooldown data to file '
+                     f'{BACKUP_FILE.absolute()}.')

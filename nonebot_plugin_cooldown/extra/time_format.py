@@ -1,3 +1,7 @@
+from nonebot import export
+
+
+@export()
 def time_format(timestamp: int, format='std') -> str:
     '''
     格式化输出剩余时间信息。
