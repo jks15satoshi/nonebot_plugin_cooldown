@@ -1,6 +1,6 @@
 import json
 import time
-from typing import Union
+from typing import Mapping, Union
 
 import nonebot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -65,8 +65,8 @@ def set_event(token: str, duration: int, event_type='normal', **kwargs) -> (
     logger.debug(f'Cooldown event {token}({result}) has been set.')
 
 
-def get_event(token: str, ignore_priority=False, event_type='normal',
-              **kwargs) -> dict[str, Union[bool, int]]:
+def get_event(token: Mapping[str, Union[bool, int]], ignore_priority=False,
+              event_type='normal', **kwargs) -> dict[str, Union[bool, int]]:
     """
     获取冷却事件状态。
 
@@ -164,7 +164,7 @@ def del_event(token: str, event_type='normal', **kwargs) -> None:
 
 @driver.on_startup
 def _init() -> None:
-    """初始化 scheduler"""
+    """初始化 scheduler。"""
     if not scheduler.running:
         scheduler.start()
         logger.info('Scheduler started')
@@ -225,7 +225,8 @@ def _auto_backup() -> None:
 
 @driver.on_bot_disconnect
 async def _backup_on_disconnect(bot: Bot) -> None:
-    """Bot 断开连接时备份数据。
+    """
+    Bot 断开连接时备份数据。
 
     参数：
     - `bot: nonebot.adapters.cqhttp.Bot`：Bot 对象。
