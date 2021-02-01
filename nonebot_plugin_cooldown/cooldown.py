@@ -168,7 +168,7 @@ def _init() -> None:
     '''
     if not scheduler.running:
         scheduler.start()
-        logger.info(f'Scheduler started')
+        logger.info('Scheduler started')
 
 
 @driver.on_startup
