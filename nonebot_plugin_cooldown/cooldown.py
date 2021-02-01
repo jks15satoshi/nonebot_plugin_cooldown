@@ -1,6 +1,6 @@
 import json
 import time
-from typing import Mapping, Union
+from typing import Any, Mapping
 
 import nonebot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -65,8 +65,8 @@ def set_event(token: str, duration: int, event_type='normal', **kwargs) -> (
     logger.debug(f'Cooldown event {token}({result}) has been set.')
 
 
-def get_event(token: Mapping[str, Union[bool, int]], ignore_priority=False,
-              event_type='normal', **kwargs) -> dict[str, Union[bool, int]]:
+def get_event(token: Mapping[str, Any], ignore_priority=False,
+              event_type='normal', **kwargs) -> dict[str, Any]:
     """
     获取冷却事件状态。
 
