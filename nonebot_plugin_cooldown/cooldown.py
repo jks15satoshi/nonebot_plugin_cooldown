@@ -87,7 +87,7 @@ def get_event(token: str, ignore_priority=False, event_type='normal',
         - `user`：用户冷却事件，需要额外的关键字参数 `user: int` 指定用户 ID。
 
     返回：
-    - `Dict[str, Union[bool, int]]`：事件状态。包含两个字段：
+    - `Dict[str, Any]`：事件状态。包含两个字段：
         - `status: bool`：冷却状态，其中 `True` 表示冷却正在生效，反之则为
           `False`；
         - `remaining: int`：冷却剩余时间（秒），当 `status` 字段值为 `False` 时
