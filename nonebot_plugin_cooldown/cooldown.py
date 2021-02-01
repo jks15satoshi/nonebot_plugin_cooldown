@@ -33,7 +33,7 @@ def set_event(token: str, duration: int, event_type='normal', **kwargs) -> (
     - `event_type: str`：事件类型，默认为 `normal`。包括：
         - `global`：全局冷却事件；
         - `group`：群组冷却事件，需要额外的关键字参数 `group: int` 指定群组 ID；
-        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和 
+        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和
           `user: int` 分别指定群组 ID 和用户 ID；
         - `user`：用户冷却事件，需要额外的关键字参数 `user: int` 指定用户 ID。
     """
@@ -65,8 +65,8 @@ def set_event(token: str, duration: int, event_type='normal', **kwargs) -> (
     logger.debug(f'Cooldown event {token}({result}) has been set.')
 
 
-def get_event(token: Mapping[str, Any], ignore_priority=False,
-              event_type='normal', **kwargs) -> dict[str, Any]:
+def get_event(token: str, ignore_priority=False, event_type='normal',
+              **kwargs) -> dict[str, Any]:
     """
     获取冷却事件状态。
 
@@ -82,7 +82,7 @@ def get_event(token: Mapping[str, Any], ignore_priority=False,
     - `event_type: str`：事件类型，默认为 `normal`。包括：
         - `global`：全局冷却事件；
         - `group`：群组冷却事件，需要额外的关键字参数 `group: int` 指定群组 ID；
-        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和 
+        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和
           `user: int` 分别指定群组 ID 和用户 ID；
         - `user`：用户冷却事件，需要额外的关键字参数 `user: int` 指定用户 ID。
 
@@ -146,7 +146,7 @@ def del_event(token: str, event_type='normal', **kwargs) -> None:
     - `event_type: str`：事件类型，默认为 `normal`。包括：
         - `global`：全局冷却事件；
         - `group`：群组冷却事件，需要额外的关键字参数 `group: int` 指定群组 ID；
-        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和 
+        - `normal`：一般冷却事件，需要额外的关键字参数 `group: int` 和
           `user: int` 分别指定群组 ID 和用户 ID；
         - `user`：用户冷却事件，需要额外的关键字参数 `user: int` 指定用户 ID。
     """
