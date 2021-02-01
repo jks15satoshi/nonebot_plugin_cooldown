@@ -5,8 +5,7 @@ from . import cooldown
 
 
 def is_cooled_down(token: str, type='normal', **kwargs) -> Rule:
-    '''
-    检查冷却事件是否已经结束的规则。如果仍在生效则为 `False`，反之为 `True`。
+    '''检查冷却事件是否已经结束的规则。如果仍在生效则为 `False`，反之为 `True`。
 
     参数：
     - `token: str`：事件标签。

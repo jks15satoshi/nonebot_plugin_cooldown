@@ -1,6 +1,4 @@
-'''
-冷却事件插件
-'''
+'''冷却事件插件'''
 from nonebot import export
 
 from . import cooldown, rule
