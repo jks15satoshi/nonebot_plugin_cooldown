@@ -4,7 +4,7 @@ from nonebot.rule import Rule
 from . import cooldown
 
 
-def is_cooled_down(token: str, type='normal', **kwargs) -> Rule:
+def is_cooled_down(token: str, event_type='normal', **kwargs) -> Rule:
     """
     检查冷却事件是否已经结束的规则。如果仍在生效则为 `False`，反之为 `True`。
 
@@ -23,7 +23,7 @@ def is_cooled_down(token: str, type='normal', **kwargs) -> Rule:
     - `nonebot.rule.Rule`
     """
     async def _is_cooled_down(bot: Bot) -> bool:
-        info = cooldown.get_event(token, type=type, **kwargs)
+        info = cooldown.get_event(token, event_type=event_type, **kwargs)
         return not info.get('status')
 
     return Rule(_is_cooled_down)
