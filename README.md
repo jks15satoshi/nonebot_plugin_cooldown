@@ -3,6 +3,7 @@
 适用于 Nonebot 2 的冷却事件管理插件。
 
 [![time tracker](https://wakatime.com/badge/github/jks15satoshi/nonebot_plugin_cooldown.svg)](https://wakatime.com/badge/github/jks15satoshi/nonebot_plugin_cooldown)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjks15satoshi%2Fnonebot_plugin_cooldown.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjks15satoshi%2Fnonebot_plugin_cooldown?ref=badge_shield)
 
 > 由于本人 Python 水平低下，因此源码可能会令人不适。
 
@@ -66,3 +67,7 @@ pip install nonebot-plugin-cooldown
 ## 许可协议
 
 该项目以 MIT 协议开放源代码，详阅 [LICENSE](LICENSE) 文件。
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjks15satoshi%2Fnonebot_plugin_cooldown.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjks15satoshi%2Fnonebot_plugin_cooldown?ref=badge_large)
